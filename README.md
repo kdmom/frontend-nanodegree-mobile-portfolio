@@ -13,6 +13,7 @@ Part 1 optimizations to get a PageSpeed score of 96:
 	Specify image height and width
 
 Part 2 optimizations to get consistent frame rate 60fps when scrolling and time to resize pizza is less than 5ms:
+
 	Reduce the number of pizzas in the background
 	In upDatePositions:
 		Move length calculation out of loop

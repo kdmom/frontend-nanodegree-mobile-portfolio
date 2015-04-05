@@ -1,13 +1,26 @@
 ## Website Performance Optimization portfolio project
 
+To run the application please bring up index.html in your browser; from here you can browse all of Cameron's portfolios.   To get to the pizza section please click on the "Cam's Pizzeria" link.   On the pizza page you can scroll up or down to see all the pizzas created and use the slider to make them small, medium, or large.
+
+
 Part 1 optimizations to get a PageSpeed score of 96:
 
 	Add async to scripts
-	use media queries
-	inline style css
-	copy the javascript from google for the fonts
-	compress images
-	specify image height and width
+	Use media queries
+	Inline style css
+	Copy the javascript from google for the fonts
+	Compress images
+	Specify image height and width
+
+Part 2 optimizations to get consistent frame rate 60fps when scrolling and time to resize pizza is less than 5ms:
+	Reduce the number of pizzas in the background
+	In upDatePositions:
+		Move length calculation out of loop
+		Declare var for scrollTop so it is not recalculated each time
+	In changePizzaSize:
+		Move length calculation out of the loop
+		Move dx calculation out of the loop
+	Switch from querySelectorAll to getElementsByClassName
 
 Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
 

@@ -472,8 +472,9 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
-for (var i = 2; i < 100; i++) {
-  var pizzasDiv = document.getElementById("randomPizzas");
+//Move declaration out of for look
+ var pizzasDiv = document.getElementById("randomPizzas");
+ for (var i = 2; i < 100; i++) {
   pizzasDiv.appendChild(pizzaElementGenerator(i));
 }
 
@@ -510,11 +511,12 @@ function updatePositions() {
 
    //move scrollTop and length out of loop
   var scrollTop = document.body.scrollTop;
+  //move phase calculation outside of loop and store in array
+  var phases = [Math.sin(scrollTop/1250),Math.sin(scrollTop/1250 + 1),Math.sin(scrollTop/1250 + 2),Math.sin(scrollTop/1250 + 3),Math.sin(scrollTop/1250 +4)];
   var len = backgroundPizzas.length;
   for (var i = 0; i < len; i++) {
-    var phase = Math.sin((scrollTop/1250) + (i % 5));
-    backgroundPizzas[i].style.left = backgroundPizzas[i].basicLeft + 100 * phase + 'px';
-  }
+    backgroundPizzas[i].style.left = backgroundPizzas[i].basicLeft + 100 * phases[i % 5] + 'px';
+    }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
@@ -533,13 +535,16 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  var numPizza = 15;  //originally 200
+  var pizzaHeight = 100;
+  var pizzaWidth = 73.333;
+  //calculate the number of pizzas needed to fill screen
+  var numPizza = Math.floor((screen.height/pizzaHeight)*cols);//originally 200
   for (var i = 0; i < numPizza; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.333px";
+    elem.style.height = pizzaHeight + "px";
+    elem.style.width = pizzaWidth + "px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
